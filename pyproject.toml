@@ -1,0 +1,52 @@
+[tool.poetry]
+name = "mcpdocs"
+version = "0.1.0"
+description = "Static documentation generator for MCP servers — like Swagger UI, but for MCP"
+authors = ["Stas Mytsyk"]
+license = "MIT"
+readme = "README.md"
+homepage = "https://github.com/smytsyk/mcpdocs"
+repository = "https://github.com/smytsyk/mcpdocs"
+keywords = ["mcp", "model-context-protocol", "documentation", "api-docs", "static-site-generator"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Topic :: Documentation",
+    "Topic :: Software Development :: Documentation",
+]
+packages = [{include = "mcpdocs"}]
+
+[tool.poetry.dependencies]
+python = "^3.12"
+mcp = "^1.0.0"
+pydantic = "^2.0.0"
+jinja2 = "^3.0.0"
+typer = "^0.9.0"
+anyio = "^4.0.0"
+fastapi = {version = "^0.100.0", optional = true}
+starlette = {version = "^0.27.0", optional = true}
+
+[tool.poetry.extras]
+fastapi = ["fastapi", "starlette"]
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.0.0"
+pytest-asyncio = "^0.23.0"
+ruff = "*"
+
+[tool.poetry.scripts]
+mcpdocs = "mcpdocs.cli:app"
+
+[build-system]
+requires = ["poetry-core>=2.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["mcpdocs/tests"]
+
+[tool.ruff]
+line-length = 88
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "W"]

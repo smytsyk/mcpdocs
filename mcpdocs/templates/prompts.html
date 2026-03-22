@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Prompts</h1>
+<input type="text" id="search-input" placeholder="Filter prompts..." class="search-box">
+
+{% for prompt in prompts %}
+<div class="item-card" id="prompt-{{ prompt.name }}">
+    <h3>{{ prompt.name }}</h3>
+    {% if prompt.description %}<p class="item-description">{{ prompt.description }}</p>{% endif %}
+
+    {% if prompt.arguments %}
+    <h4>Arguments</h4>
+    <table class="params-table">
+        <thead><tr><th>Name</th><th>Required</th><th>Description</th></tr></thead>
+        <tbody>
+        {% for arg in prompt.arguments %}
+        <tr>
+            <td><code>{{ arg.name }}</code></td>
+            <td>{{ "yes" if arg.required else "no" }}</td>
+            <td>{{ arg.description or "" }}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {% endif %}
+</div>
+{% endfor %}
+{% endblock %}

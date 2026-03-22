@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Tools</h1>
+<input type="text" id="search-input" placeholder="Filter tools..." class="search-box">
+
+{% for tool in tools %}
+<div class="item-card" id="tool-{{ tool.name }}">
+    <div class="item-header">
+        <h3>{{ tool.name }}</h3>
+        <div class="badges">
+            {% if tool.annotations %}
+                {% if tool.annotations.read_only %}<span class="badge badge-readonly">read-only</span>{% endif %}
+                {% if tool.annotations.destructive %}<span class="badge badge-destructive">destructive</span>{% endif %}
+                {% if tool.annotations.idempotent %}<span class="badge badge-idempotent">idempotent</span>{% endif %}
+            {% endif %}
+        </div>
+    </div>
+    {% if tool.description %}<p class="item-description">{{ tool.description }}</p>{% endif %}
+
+    {% set properties = tool.input_schema.get("properties", {}) %}
+    {% set required_params = tool.input_schema.get("required", []) %}
+    {% if properties %}
+    <h4>Parameters</h4>
+    <table class="params-table">
+        <thead><tr><th>Name</th><th>Type</th><th>Required</th><th>Default</th><th>Description</th></tr></thead>
+        <tbody>
+        {% for param_name, param_schema in properties.items() %}
+        <tr>
+            <td><code>{{ param_name }}</code></td>
+            <td><code>{{ param_schema.get("type", "any") }}</code></td>
+            <td>{{ "yes" if param_name in required_params else "no" }}</td>
+            <td>{{ param_schema.get("default", "—") }}</td>
+            <td>{{ param_schema.get("description", "") }}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {% endif %}
+
+    <button class="collapsible-toggle">▶ Show schema</button>
+    <pre class="collapsible-content collapsed"><code>{{ tool.input_schema | tojson(indent=2) }}</code></pre>
+</div>
+{% endfor %}
+{% endblock %}

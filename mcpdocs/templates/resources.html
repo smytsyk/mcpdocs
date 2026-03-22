@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Resources</h1>
+<input type="text" id="search-input" placeholder="Filter resources..." class="search-box">
+
+{% if resources %}
+<h2>Static Resources</h2>
+{% for resource in resources %}
+<div class="item-card" id="resource-{{ resource.name }}">
+    <h3>{{ resource.name }}</h3>
+    <p class="item-uri"><code>{{ resource.uri }}</code></p>
+    {% if resource.description %}<p class="item-description">{{ resource.description }}</p>{% endif %}
+    {% if resource.mime_type %}<span class="badge">{{ resource.mime_type }}</span>{% endif %}
+</div>
+{% endfor %}
+{% endif %}
+
+{% if resource_templates %}
+<h2>Resource Templates</h2>
+{% for template in resource_templates %}
+<div class="item-card" id="template-{{ template.name }}">
+    <h3>{{ template.name }}</h3>
+    <p class="item-uri"><code>{{ template.uri_template }}</code></p>
+    {% if template.description %}<p class="item-description">{{ template.description }}</p>{% endif %}
+    {% if template.mime_type %}<span class="badge">{{ template.mime_type }}</span>{% endif %}
+</div>
+{% endfor %}
+{% endif %}
+{% endblock %}
