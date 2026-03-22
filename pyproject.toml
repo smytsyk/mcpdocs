@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "mcpdocs-gen"
-version = "0.1.1"
+version = "0.1.2"
 description = "Static documentation generator for MCP servers — like Swagger UI, but for MCP"
 authors = ["Stas Mytsyk"]
 license = "MIT"

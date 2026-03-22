@@ -15,14 +15,16 @@
 
 ## Installation
 
+> **Note:** The repository is named `mcpdocs`, but the PyPI package is published as `mcpdocs-gen`.
+
 ```bash
-pip install mcpdocs
+pip install mcpdocs-gen
 ```
 
 To use the FastAPI integration:
 
 ```bash
-pip install "mcpdocs[fastapi]"
+pip install "mcpdocs-gen[fastapi]"
 ```
 
 ## Usage
